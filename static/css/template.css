@@ -6,14 +6,12 @@
 .myname {
     font-size: 40px;
     padding-left: 6%;
-    font-family:  'Courier Prime', monospace;;
     color: white;
     align-items: center;
 }
 
 .nav_font {
     font-size: 30px;
-    font-family:  'Courier Prime', monospace;;
     color: white;
 }
 
@@ -24,3 +22,28 @@
 .navbar-end{
     margin-right: 20%;
 }
+
+.typewriter{
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid #1CB4E9; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    line-height: normal;
+    animation: 
+      typing 2.75s steps(44, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #1CB4E9; }
+  }
+  
