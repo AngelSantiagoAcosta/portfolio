@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Courier+Prime:ital@1&family=EB+Garamond&family=Manrope:wght@500&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+      <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/cyborg/bulmaswatch.min.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+
+
+      <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+<body>
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="container is-vcentered is-half">
+      <figure class="image is-96x96 " style= "margin-left: 40%; padding-top: .5%;">
+        <img  src="/static/img/4x/Asset 1@4x.png">
+      </figure>
+    </div>  
+
+    <div class ="container navbar-end auto">
+      <a class="navbar-item nav_font" href="#">About</a>
+      <a class="navbar-item nav_font" href="#">Projects</a>
+      <a class=" navbar-item nav_font" href="#">Contact</a>
+    </div>
+  </nav>
+  
+
+    <section class="section is-medium ">
+      <div class="contianer is-widescreen">
+        <h1 class="title  ">Real time crypto data Visualization</h1>
+        <h2 class="subtitle " >
+          This visualization utilizes Alpaca webhooks and a JavaScript library by Trading View called lightweight-charts.
+          First I subscribe to and authenticate the webhook. The data begins streaming in and then I parse the data.
+          I split the data into Quotes, Trades, and Buys, which is then used to populate the chart and tile objects.
+          Another note is that I grab the last hour of historical data to populate the Chart before streaming begins.
+        </h2>
+      </div>
+        <div class="tile is-ancestor ">
+          <div class="tile is-parent">
+              <div class="tile is-child box level">
+                <h1 class="level-item">ETH USD Live Chart</h1>
+                <div id="chart" class="level-item">
+                </div>
+              </div>
+            </div>
+          <div class="tile is-6 is-vertical is-parent">
+            <div class="tile is-child box">
+              <h1>Quotes</h1>
+              <div id="quotes" class="panel "></div>
+            </div>
+            <div class="tile is-child box">
+              <h1>Trades</h1>
+              <div id="trades" class="panel "></div>
+            </div>
+          </div>
+        </div>
+      <script src="{{ url_for('static', filename='/js/gridbot.js') }}"></script>
+      </section>
+
+</body>
+</html>
