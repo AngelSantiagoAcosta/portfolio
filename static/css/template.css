@@ -6,13 +6,13 @@
 .myname {
     font-size: 40px;
     padding-left: 6%;
-    color: white;
+    /* color: white; */
     align-items: center;
 }
 
 .nav_font {
     font-size: 30px;
-    color: white;
+    /* color: white; */
 }
 
 .p{

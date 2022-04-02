@@ -11,6 +11,7 @@ const tradesElement = document.getElementById('trades')
 
 let currentBar = {};
 let trades = [];
+let allData = [];
 
 // let chartel = document.getElementsById("chart")
 // let width = chartel.offsetWidth;
@@ -22,8 +23,8 @@ const chart = LightweightCharts.createChart(document.getElementById('chart'),{
     width: 900,
     height: 700,
     layout: {
-        backgroundColor: '#000000',
-        textColor: '#ffffff'
+        backgroundColor:'#ffffff' ,
+        textColor: '#000000'
     },
     grid: {
         verticalLines:{
@@ -46,6 +47,11 @@ const chart = LightweightCharts.createChart(document.getElementById('chart'),{
 });
 // adding candlestick setting, and then fetching data from last hour to populate chart
 var candleSeries = chart.addCandlestickSeries();
+//adding SMA 10
+var smaLine = chart.addLineSeries({
+	color: 'rgba(4, 111, 232, 1)',
+	lineWidth: 2,
+    });
 var start = new Date(Date.now() -(7200 *1000)).toISOString();
 var bars_url= 'https://data.alpaca.markets/v1beta1/crypto/ETHUSD/bars?exchanges=CBSE&timeframe=1Min&start=' + start
 fetch(bars_url, {
@@ -67,11 +73,33 @@ fetch(bars_url, {
 
         }
         ));
-
+    allData = data
     currentBar = data[data.length-1]
-
     candleSeries.setData(data)
-});
+    var smaData = calculateSMA(data, 10);
+    
+    console.log(smaData)
+    smaLine.setData(smaData);
+    });
+
+    // this is the function to calculate SMA
+function calculateSMA(data, count){
+    var avg = function(data) {
+      var sum = 0;
+      for (var i = 0; i < data.length; i++) {
+         sum += data[i].close;
+      }
+      return sum / data.length;
+    };
+    var result = [];
+    for (var i=count - 1, len=data.length; i < len; i++){
+      var val = avg(data.slice(i - count + 1, i));
+      result.push({ time: data[i].time, value: val});
+    }
+    return result;
+  }
+
+
 
 socket.onmessage = function(event){
     const data = JSON.parse(event.data);
@@ -88,11 +116,11 @@ socket.onmessage = function(event){
         socket.send(JSON.stringify(sub));
     }
     for (var key in data){
-        console.log(key)
+        // console.log(key)
 
         const type = data[key].T;
 
-        if (type == 'q'){
+        if (type == 'q' ){
             // console.log('got a quote');;
             // console.log(data[key])
 
@@ -106,7 +134,7 @@ socket.onmessage = function(event){
                 quotesElement.removeChild(elements[0]);
         }
 
-        if (type == 't'){
+        if (type == 't' && data[key].x == 'CBSE'){
             // console.log('got a trade');
             // console.log(data[key]);
 
@@ -137,10 +165,10 @@ socket.onmessage = function(event){
            
 
         }
-
+        //we only want to show Coinbase trades/bars
         if (type == 'b' && data[key].x == 'CBSE'){
-            // console.log('got a bar');
-            // console.log(data[key]);
+            console.log('got a bar');
+            console.log(data[key]);
             var bar = data[key]
             var timestamp = new Date(bar.t).getTime() / 1000
             currentBar={
@@ -151,6 +179,11 @@ socket.onmessage = function(event){
                 close: bar.c
             }
             candleSeries.update(currentBar);
+
+            // we need to re-calculate SMA 
+            allData.push(currentBar);
+            var newSMA = calculateSMA(allData, 10);
+            smaLine.setData(newSMA)            
             trades = [];
         }
     }
