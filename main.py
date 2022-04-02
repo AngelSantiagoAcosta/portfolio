@@ -19,7 +19,12 @@ def portfolio():
 @app.route("/contact")
 def contact():
 	return render_template('contact.html')
-    
+
+#contact me page route
+@app.route("/crypto")
+def crypto():
+	return render_template('/projects/CryptoAPI.html  ')
+ 
 if __name__ == "__main__":
     app.run(debug=True)
 

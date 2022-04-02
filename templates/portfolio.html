@@ -1,64 +1,69 @@
-<!DOCTYPE html>
-<html>
+{%extends 'base.html'%}
+{%block content%}
+<div class="container">
+  <section class="section is-medium">
+    <h1 class="title has-text-centered">Projects</h1>
 
-
-
-      <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-
-
-    {%extends 'base.html'%}
-    {%block content%}
-<body>
-
-
-    <section class="section is-medium ">
-      <div class="contianer is-fluid">
-
-        <div class="columns">
-          <div class="column">
-
-          </div>
-          <div class="column is-two-thirds">
-            <h1 class="title has-text-centered">Real time crypto data Visualization</h1>
-          </br>
-            <h2 class="subtitle " >
+    <div class="columns">
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <p class="title has-text-centered pb-2">
+              Crypto Data Visualization
+            </p>
+            <p class="subtitle has-text-centered ">
+              This visualization utilizes  the <a href="https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/realtime/">Alpaca Crypto Data API</a>  and a JavaScript library <a href="https://www.tradingview.com/lightweight-charts/">Lightweight Charts</a>.
+              <img>
+              Parsing and Visualizing Data, API's, WebSockets, Javascript 
               
+            </p>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                View on <a href="https://github.com/AngelSantiagoAcosta/">Github</a>
+              </span>
+            </p>
+            <p class="card-footer-item">
+              <span>
+                Share on <a href="#">Facebook</a>
+              </span>
+            </p>
+          </footer>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <p class="title has-text-centered pb-2">
+              Crypto Data Visualization
+            </p>
+            <p class="subtitle has-text-centered ">
               This visualization utilizes  the <a href="https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/realtime/">Alpaca Crypto Data API</a>  and a JavaScript library <a href="https://www.tradingview.com/lightweight-charts/">Lightweight Charts</a>. </br>
               First I subscribe to and authenticate the websocket that is recieved from the API call. The data begins streaming in and then I parse the data.
               I split the data into Quotes, Trades, and Buys, which is then used to populate the chart and tile objects.
-              Another note is that I grab the last hour of historical data to populate the Chart before streaming begins.
-            </h2>
+              Another note is that I grab the last hour of historical data to populate the Chart before streaming begins. 
+            </p>
           </div>
-          <div class="column">
-
-          </div>
-
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                View on <a href="https://github.com/AngelSantiagoAcosta/">Github</a>
+              </span>
+            </p>
+            <p class="card-footer-item">
+              <span>
+                Share on <a href="#">Facebook</a>
+              </span>
+            </p>
+          </footer>
         </div>
-
       </div>
-    </br>
-        <div class="tile is-ancestor ">
-          <div class="tile is-parent">
-              <div class="tile is-child box level">
-                <h1 class="level-item">ETH USD Live Chart</h1>
-                <div id="chart" class="level-item">
-                </div>
-              </div>
-            </div>
-          <div class="tile is-6 is-vertical is-parent">
-            <div class="tile is-child box">
-              <h1 class="is-family-primary">Quotes</h1>
-              <div id="quotes" class="panel "></div>
-            </div>
-            <div class="tile is-child box">
-              <h1>Trades</h1>
-              <div id="trades" class="panel "></div>
-            </div>
-          </div>
-        </div>
-      <script src="{{ url_for('static', filename='/js/gridbot.js') }}"></script>
-      </section>
 
-</body>
+
+
+
+  </section>
+</div>
+
 {%endblock%}
-</html>

@@ -47,3 +47,11 @@
     50% { border-color: #1CB4E9; }
   }
   
+  .dot {
+    height: 15px;
+    width: 15px;
+    background-color: #EF5350;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
