@@ -35,7 +35,7 @@ const chart = LightweightCharts.createChart(document.getElementById('chart'),{
         },
     },
     crosshair:{
-        mode: LightweightCharts.CrosshairMode.Normal,
+        mode: LightweightCharts.CrosshairMode.Magnet,
     },
     priceScale: {
         borderColor: '#cccccc',
@@ -124,29 +124,52 @@ socket.onmessage = function(event){
             // console.log('got a quote');;
             // console.log(data[key])
 
-            const quoteElement = document.createElement('div');
-            quoteElement.className='quotes';
-            quoteElement.innerHTML=`<b>${data[key].t}</b> ${data[key].bp} ${data[key].ap}`;
-            quotesElement.appendChild(quoteElement);
+            // const quoteElement = document.createElement('div');
+            // quoteElement.className='quotes';
+            // quoteElement.innerHTML=`<b>${data[key].t}</b> ${data[key].bp} ${data[key].ap}`;
+            const qtime = document.getElementById("Quote-Time")
+            const bidprice = document.getElementById("Quote-BidPrice")
+            const askprice = document.getElementById("Quote-AskPrice")
 
-            var elements = document.getElementsByClassName('quotes')
-            if(elements.length > 10)
-                quotesElement.removeChild(elements[0]);
+            const qtimeElement = document.createElement('div');
+            const bidpriceElement = document.createElement('div');
+            const askpriceElement = document.createElement('div');
+            
+            qtimeElement.innerHTML = `<b>${data[key].t}</b>`
+            bidpriceElement.innerHTML = `<b>${data[key].bp}</b>`
+            askpriceElement.innerHTML = `<b>${data[key].ap}</b>`
+
+            qtime.prepend(qtimeElement)
+            bidprice.prepend(bidpriceElement)
+            askprice.prepend(askpriceElement)
         }
 
         if (type == 't' && data[key].x == 'CBSE'){
             // console.log('got a trade');
             // console.log(data[key]);
+            const tradetime = document.getElementById("Trade-Time")
+            const tradeprice = document.getElementById("Trade-Price")
+            const tradesize = document.getElementById("Trade-Size")
 
-            const tradeElement = document.createElement('div');
-            tradeElement.className='trades';
-            tradeElement.innerHTML=`<b>${data[key].t}</b> ${data[key].p} ${data[key].s}`;
-            tradesElement.appendChild(tradeElement);
+            const ttimeElement = document.createElement('div');
+            const tpriceElement = document.createElement('div');
+            const tsizeElement = document.createElement('div');
+            
+            ttimeElement.innerHTML = `<b>${data[key].t}</b>`
+            tpriceElement.innerHTML = `<b>${data[key].p}</b>`
+            tsizeElement.innerHTML = `<b>${data[key].s}</b>`
 
-            var elements = document.getElementsByClassName('trades')
-            if(elements.length > 10)
-                tradesElement.removeChild(elements[0]);
+            tradetime.prepend(ttimeElement)
+            tradeprice.prepend(tpriceElement)
+            tradesize.prepend(tsizeElement)
 
+            // tradeElement.className='trades';
+            // tradeElement.innerHTML=`<b>${data[key].t}</b> ${data[key].p} ${data[key].s}`;
+            // tradesElement.appendChild(tradeElement);
+
+            // var elements = document.getElementsByClassName('trades')
+            // if(elements.length > 10)
+            //     tradesElement.removeChild(elements[0]);
 
             trades.push(data[key].p)
 
@@ -163,7 +186,6 @@ socket.onmessage = function(event){
                 close: close
             })
            
-
         }
         //we only want to show Coinbase trades/bars
         if (type == 'b' && data[key].x == 'CBSE'){

@@ -47,6 +47,11 @@
     50% { border-color: #1CB4E9; }
   }
   
+  .datapanel{
+    height:260px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
   .dot {
     height: 15px;
     width: 15px;
@@ -55,3 +60,8 @@
     display: inline-block;
   }
   
+  #rectangle{
+    width:20px;
+    height:10px;
+    background:rgba(4, 111, 232, 1);
+}

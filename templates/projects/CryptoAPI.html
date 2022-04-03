@@ -18,9 +18,9 @@
                   <p class="subtitle has-text-centered ">
                     This visualization utilizes  the <a href="https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/realtime/">Alpaca Crypto Data API</a>  and a JavaScript library <a href="https://www.tradingview.com/lightweight-charts/">Lightweight Charts</a>. </br>
                     First I subscribe to and authenticate the websocket that is recieved from the API call. The data begins streaming which I parse accordingly.
-                    I split the data into Quotes, Trades, and Buys, which is used to populate the chart and tile objects.
+                    I split the data into Quotes, Trades, and Bars, which is used to populate the chart and tile objects.
                     Another note is that I grab the last hour of historical data to populate the Chart before streaming begins.
-                    Parsing and Visualizing Data, API's, WebSockets, Javascript                    
+                    Technical Skills used to complete this project include Parsing and Visualizing Data, API's, WebSockets, Javascript, Python, and Flask                                     
                   </p>
                 </div>
               </div>
@@ -32,24 +32,78 @@
         <div class="tile is-ancestor ">
           <div class="tile is-parent">
               <div class="tile is-child box level">
-                <h1 class="level-item mb-4">ETH USD<span class="ml-4 dot "></span></h1>
+                <h1 class="title is-4 level-item mb-4">ETH USD<span class="ml-4 dot"></span></h1>
                 <i class="fas fa-info-circle"></i>
+                <h2 class=" ml-6">SMA10 
+                  <span class="ml-4"> 
+                  <svg width="20" height="10">
+                    <rect width="20" height="15" style="fill:rgba(4, 111, 232, 1);" />
+                  </svg>
+                </span>
+              </h2>
                 <div id="chart" class="level-item">
+                  <!-- chart obj gets loaded here with javascript -->
                 </div>
               </div>
             </div>
           <div class="tile is-6 is-vertical is-parent">
             <div class="tile is-child box">
-              <h1 class="is-family-primary">Quotes</h1>
-              <div id="quotes" class="panel "></div>
+              <h1 class="notification title is-4 has-text-weight-semibold is-primary has-text-centered">QUOTES</h1>
+              <div class="columns has-text-centered">
+                <div class="column" >
+                  <h1 class="notification has-background-info-dark has-text-centered">Time-Stamp</h1>
+                </div>
+                <div class="column">
+                  <h1 class="notification has-background-info-dark has-text-centered">Bidding Price</h1>
+                </div>
+                <div class="column" >
+                  <h1 class="notification has-background-info-dark has-text-centered">Asking Price</h1>
+                </div>
+              </div>
+              <div id="Quotes" class="datapanel  has-text-centered">
+                <div class="columns">
+                  <div class="column" id="Quote-Time">
+ 
+                  </div>
+                  <div class="column" id="Quote-AskPrice">
+
+                  </div>
+                  <div class="column" id="Quote-BidPrice">
+
+                  </div>
+                </div>
+              </div>         
             </div>
             <div class="tile is-child box">
-              <h1>Trades</h1>
-              <div id="trades" class="panel "></div>
+              <h1 class="notification title is-4 has-text-weight-semibold is-primary has-text-centered">TRADES</h1>
+              <div class="columns has-text-centered">
+                <div class="column" >
+                  <h1 class="notification has-background-info-dark has-text-centered">Time-Stamp</h1>
+                </div>
+                <div class="column">
+                  <h1 class="notification has-background-info-dark has-text-centered">Price</h1>
+                </div>
+                <div class="column" >
+                  <h1 class="notification has-background-info-dark has-text-centered">Size</h1>
+                </div>
+              </div>
+              <div id="trades" class="datapanel  has-text-centered">
+                <div class="columns">
+                  <div class="column" id="Trade-Time">
+ 
+                  </div>
+                  <div class="column" id="Trade-Price">
+
+                  </div>
+                  <div class="column" id="Trade-Size">
+
+                  </div>
+                </div>
+              </div>                
             </div>
           </div>
         </div>
-      <script src="{{ url_for('static', filename='/js/gridbot.js') }}"></script>
+      <script src="{{ url_for('static', filename='/js/cryptocharting.js') }}"></script>
 
 
 </body>
