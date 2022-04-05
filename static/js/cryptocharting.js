@@ -13,9 +13,7 @@ let currentBar = {};
 let trades = [];
 let allData = [];
 
-// let chartel = document.getElementsById("chart")
-// let width = chartel.offsetWidth;
-// let height = chartel.offsetHeight;
+
 
 
 // create our chart and then add our attributes/styling
@@ -23,15 +21,15 @@ const chart = LightweightCharts.createChart(document.getElementById('chart'),{
     width: 900,
     height: 700,
     layout: {
-        backgroundColor:'#ffffff' ,
-        textColor: '#000000'
+        backgroundColor:'#0C1115' ,
+        textColor: '#FFFFFF'
     },
     grid: {
         verticalLines:{
-            color: '404040',
+            color: '8C9B9D',
         },
         horzLines: {
-            color: '#404040',
+            color: '#8C9B9D',
         },
     },
     crosshair:{
@@ -98,8 +96,25 @@ function calculateSMA(data, count){
     }
     return result;
   }
+  //this function handles rendering the streaming data to the page, and limiting to 10 items
+  function create_and_limit(elements,data){
+    for(let i = 0; i < data.length; i++){ 
+        const el = document.createElement('li');
+        el.innerHTML = data[i];
+        el.classList.add("button","is-success","is-outlined");
 
+        elements[i].prepend(el);
+        
+        if(elements[i].childElementCount > 1){
+            elements[i].childNodes[1].classList.remove("button","is-success","is-medium","is-outlined");
+        }
 
+        if(elements[i].childElementCount > 10){
+            elements[i].removeChild(elements[i].childNodes[10]);
+        }
+    }
+
+  }
 
 socket.onmessage = function(event){
     const data = JSON.parse(event.data);
@@ -117,61 +132,25 @@ socket.onmessage = function(event){
     }
     for (var key in data){
         // console.log(key)
-
         const type = data[key].T;
-
         if (type == 'q' ){
             // console.log('got a quote');;
             // console.log(data[key])
-
-            // const quoteElement = document.createElement('div');
-            // quoteElement.className='quotes';
-            // quoteElement.innerHTML=`<b>${data[key].t}</b> ${data[key].bp} ${data[key].ap}`;
-            const qtime = document.getElementById("Quote-Time")
-            const bidprice = document.getElementById("Quote-BidPrice")
-            const askprice = document.getElementById("Quote-AskPrice")
-
-            const qtimeElement = document.createElement('div');
-            const bidpriceElement = document.createElement('div');
-            const askpriceElement = document.createElement('div');
-            
-            qtimeElement.innerHTML = `<b>${data[key].t}</b>`
-            bidpriceElement.innerHTML = `<b>${data[key].bp}</b>`
-            askpriceElement.innerHTML = `<b>${data[key].ap}</b>`
-
-            qtime.prepend(qtimeElement)
-            bidprice.prepend(bidpriceElement)
-            askprice.prepend(askpriceElement)
+            const qtime = document.getElementById("Quote-Time");
+            const bidprice = document.getElementById("Quote-BidPrice");
+            const askprice = document.getElementById("Quote-AskPrice");
+            create_and_limit([qtime,bidprice,askprice],[`<b>${data[key].t}</b>`,`<b>${data[key].bp}</b>`,`<b>${data[key].ap}</b>`]);
         }
 
         if (type == 't' && data[key].x == 'CBSE'){
             // console.log('got a trade');
             // console.log(data[key]);
-            const tradetime = document.getElementById("Trade-Time")
-            const tradeprice = document.getElementById("Trade-Price")
-            const tradesize = document.getElementById("Trade-Size")
+            const tradetime = document.getElementById("Trade-Time");
+            const tradeprice = document.getElementById("Trade-Price");
+            const tradesize = document.getElementById("Trade-Size");
+            create_and_limit([tradetime,tradeprice,tradesize],[`<b>${data[key].t}</b>`,`<b>${data[key].p}</b>`,`<b>${data[key].s}</b>`]);
 
-            const ttimeElement = document.createElement('div');
-            const tpriceElement = document.createElement('div');
-            const tsizeElement = document.createElement('div');
-            
-            ttimeElement.innerHTML = `<b>${data[key].t}</b>`
-            tpriceElement.innerHTML = `<b>${data[key].p}</b>`
-            tsizeElement.innerHTML = `<b>${data[key].s}</b>`
-
-            tradetime.prepend(ttimeElement)
-            tradeprice.prepend(tpriceElement)
-            tradesize.prepend(tsizeElement)
-
-            // tradeElement.className='trades';
-            // tradeElement.innerHTML=`<b>${data[key].t}</b> ${data[key].p} ${data[key].s}`;
-            // tradesElement.appendChild(tradeElement);
-
-            // var elements = document.getElementsByClassName('trades')
-            // if(elements.length > 10)
-            //     tradesElement.removeChild(elements[0]);
-
-            trades.push(data[key].p)
+            trades.push(data[key].p);
 
             var open = trades[0];
             var high = Math.max(...trades);
@@ -184,15 +163,15 @@ socket.onmessage = function(event){
                 high: high,
                 low: low,
                 close: close
-            })
+            });
            
         }
-        //we only want to show Coinbase trades/bars
+        //we only want to show FTXU trades/bars
         if (type == 'b' && data[key].x == 'CBSE'){
-            console.log('got a bar');
-            console.log(data[key]);
-            var bar = data[key]
-            var timestamp = new Date(bar.t).getTime() / 1000
+            // console.log('got a bar');
+            // console.log(data[key]);
+            var bar = data[key];
+            var timestamp = new Date(bar.t).getTime() / 1000;
             currentBar={
                 time: timestamp,
                 open: bar.o,
@@ -205,7 +184,7 @@ socket.onmessage = function(event){
             // we need to re-calculate SMA 
             allData.push(currentBar);
             var newSMA = calculateSMA(allData, 10);
-            smaLine.setData(newSMA)            
+            smaLine.setData(newSMA);          
             trades = [];
         }
     }

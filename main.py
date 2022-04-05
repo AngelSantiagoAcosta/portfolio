@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
-@app.route("/")
+@app.route("/home")
 def home():
     return render_template("index.html")
 
@@ -20,7 +20,7 @@ def portfolio():
 def contact():
 	return render_template('contact.html')
 
-#contact me page route
+#crypto project
 @app.route("/crypto")
 def crypto():
 	return render_template('/projects/CryptoAPI.html  ')

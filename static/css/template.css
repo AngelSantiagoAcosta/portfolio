@@ -23,6 +23,14 @@
     margin-right: 20%;
 }
 
+#navbar{
+  background: #0C1115;
+  border: none;
+}
+.custom_bg_black{
+  background: #0C1115;
+}
+
 .typewriter{
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: .15em solid #1CB4E9; /* The typwriter cursor */
@@ -31,9 +39,18 @@
     letter-spacing: .15em; /* Adjust as needed */
     line-height: normal;
     animation: 
-      typing 2.75s steps(44, end),
-      blink-caret .75s step-end infinite;
+      typing 2s steps(44, end),
+      blink-caret .7s step-end infinite;
   }
+  .raise{
+    position:relative;
+     left:65px;
+     top:-100px;
+  }
+  /* #logo-img{
+    width:20%;
+    height:100%;
+  } */
   
   /* The typing effect */
   @keyframes typing {
@@ -46,11 +63,11 @@
     from, to { border-color: transparent }
     50% { border-color: #1CB4E9; }
   }
-  
+
   .datapanel{
     height:260px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
   }
   .dot {
     height: 15px;
@@ -64,4 +81,13 @@
     width:20px;
     height:10px;
     background:rgba(4, 111, 232, 1);
+}
+#main-back{
+  background: url("/static/img/mainbackground/4x/latptop.png") no-repeat fixed center;
+  background-color: #0C1115;
+  background-size:contain;
+  background-attachment:scroll;
+
+
+
 }
