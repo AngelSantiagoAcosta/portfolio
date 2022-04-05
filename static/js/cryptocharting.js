@@ -1,8 +1,8 @@
 
 const crpyto_url = "wss://stream.data.alpaca.markets/v1beta1/crypto";
 const socket = new WebSocket(crpyto_url);
-const API_KEY = 'PKU77D6YIE642N37CCHP'
-const SECRET_KEY = 'REpYMghLSvNExS5nX8hzHdYPhER81JPmu1BVVmk1'
+const API_KEY = 'PK7N2K5IPN08ZH2OGJEQ'
+const SECRET_KEY = 'JvtV75chfpjYwsfIRAxDx4mqs4FYC9BQ3DdRruJ1'
 const auth = {"action": "auth", "key": API_KEY , "secret":SECRET_KEY };
 const sub = {"action":"subscribe","trades":["ETHUSD"],"quotes":["ETHUSD"],"bars":["ETHUSD"]};
 
@@ -21,16 +21,16 @@ const chart = LightweightCharts.createChart(document.getElementById('chart'),{
     width: 900,
     height: 700,
     layout: {
-        backgroundColor:'#0C1115' ,
-        textColor: '#FFFFFF'
-    },
-    grid: {
-        verticalLines:{
-            color: '8C9B9D',
-        },
-        horzLines: {
-            color: '#8C9B9D',
-        },
+		backgroundColor: '#0C1115',
+		textColor: '#d1d4dc',
+	},
+	grid: {
+		vertLines: {
+			color: 'rgba(42, 46, 57, 0)',
+		},
+		horzLines: {
+			color: 'rgba(42, 46, 57, 0)',
+		},
     },
     crosshair:{
         mode: LightweightCharts.CrosshairMode.Magnet,
@@ -46,8 +46,14 @@ const chart = LightweightCharts.createChart(document.getElementById('chart'),{
 // adding candlestick setting, and then fetching data from last hour to populate chart
 var candleSeries = chart.addCandlestickSeries();
 //adding SMA 10
+var areaSeries = chart.addAreaSeries({
+	topColor: '#2A9FD6',
+	bottomColor: 'rgba(38,198,218, 0.04)',
+	lineColor: 'rgba(38,198,218, 1)',
+	lineWidth: 2,
+});
 var smaLine = chart.addLineSeries({
-	color: 'rgba(4, 111, 232, 1)',
+	color: '#245BA9',
 	lineWidth: 2,
     });
 var start = new Date(Date.now() -(7200 *1000)).toISOString();
@@ -78,6 +84,7 @@ fetch(bars_url, {
     
     console.log(smaData)
     smaLine.setData(smaData);
+    // areaSeries.setData(smaData);
     });
 
     // this is the function to calculate SMA
@@ -134,8 +141,8 @@ socket.onmessage = function(event){
         // console.log(key)
         const type = data[key].T;
         if (type == 'q' ){
-            // console.log('got a quote');;
-            // console.log(data[key])
+            console.log('got a quote');;
+            console.log(data[key])
             const qtime = document.getElementById("Quote-Time");
             const bidprice = document.getElementById("Quote-BidPrice");
             const askprice = document.getElementById("Quote-AskPrice");

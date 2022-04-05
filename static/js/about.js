@@ -6,8 +6,15 @@ const tabcontent = document.querySelectorAll("#tab-content > div")
 tabs.forEach((tab) =>{
     console.log(tab)
     tab.addEventListener('click', () =>{
-        tabs.forEach((item)=> item.classList.remove('is-active'));
-        tab.classList.add('is-active');
+        tabs.forEach((item) =>{
+            item.classList.remove('is-active');
+            var spans = item.querySelectorAll("span")
+            spans.forEach((item)=> item.classList.remove('custom_bright_blue'));
+        });
+
+        var spans = tab.querySelectorAll("span")
+        spans.forEach((item)=> item.classList.add('custom_bright_blue'));
+        tab.classList.add('is-active','custom_bright_blue');
 
         const target= tab.dataset.target;
         // console.log(target)
