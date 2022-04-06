@@ -2,7 +2,12 @@
 
 const tabs = document.querySelectorAll(".tabs li")
 const tabcontent = document.querySelectorAll("#tab-content > div")
-
+var swiper = new Swiper(".mySwiper", {
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
 tabs.forEach((tab) =>{
     console.log(tab)
     tab.addEventListener('click', () =>{
