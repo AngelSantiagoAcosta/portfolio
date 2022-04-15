@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
       <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+      <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.1.8/dist/js/tabulator.min.js"></script>
+
     {%extends 'base.html'%}
     {%block content%}
 <body>
@@ -13,10 +15,10 @@
             <div class="card">
                 <div class="card-content">
                   <p class="title has-text-centered pb-2">
-                    Crypto Data Visualization
+                    Real-Time Crypto Dashbaord
                   </p>
                   <p class="subtitle has-text-centered ">
-                    This visualization utilizes  the <a class ="custom_bright_blue"  href="https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/realtime/" target="_blank" rel="noopener noreferrer">Alpaca Crypto Data API</a>  and a JavaScript library <a class ="custom_bright_blue"  href="https://www.tradingview.com/lightweight-charts/" target="_blank" rel="noopener noreferrer">Lightweight Charts</a>. </br>
+                    This Dashboard utilizes  the <a class ="custom_bright_blue"  href="https://alpaca.markets/docs/api-references/market-data-api/crypto-pricing-data/realtime/" target="_blank" rel="noopener noreferrer">Alpaca Crypto Data API</a>  and a JavaScript library <a class ="custom_bright_blue"  href="https://www.tradingview.com/lightweight-charts/" target="_blank" rel="noopener noreferrer">Lightweight Charts</a>. </br>
                     First I subscribe to and authenticate the websocket that is recieved from the API call. 
                     I parse the data into Quotes, Trades, and Bars, which is used to populate the chart and tile objects.
                     I grab the last hour of historical data to populate the Chart before streaming begins.
@@ -41,9 +43,9 @@
           </div>
         </div>
       </div>
-        <div class="tile is-ancestor ">
+        <div class="tile is-ancestor" >
           <div class="tile is-parent">
-              <div class="tile is-child box level">
+              <div class="tile is-child box level" id="chart">
                 <h1 class="notification title is-4 has-text-weight-semibold has-background-dark  has-text-centered is-4 level-item mb-4">ETH USD<span class="ml-4 dot"></span></h1>
                 <i class="fas fa-info-circle"></i>
                 <h2 class=" ml-6">SMA10 
@@ -53,8 +55,7 @@
                   </svg>
                 </span>
               </h2>
-                <div id="chart" class="level-item">
-                  <!-- chart obj gets loaded here with javascript -->
+                <div id="table-data">
                 </div>
               </div>
             </div>

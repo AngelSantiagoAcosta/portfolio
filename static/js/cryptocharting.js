@@ -12,14 +12,22 @@ const tradesElement = document.getElementById('trades')
 let currentBar = {};
 let trades = [];
 let allData = [];
+// var tabledata= []
 
-
-
+// var table = new Tabulator("#table-data", {
+//     height:"311px",
+//     columns:[
+//     {title:"Name", field:"name"},
+//     {title:"Progress", field:"progress", sorter:"number"},
+//     {title:"Gender", field:"gender"},
+//     {title:"Rating", field:"rating"},
+//     {title:"Favourite Color", field:"col"},
+//     {title:"Date Of Birth", field:"dob", hozAlign:"center"},
+//     ],
+// });
 
 // create our chart and then add our attributes/styling
 const chart = LightweightCharts.createChart(document.getElementById('chart'),{
-    width: 900,
-    height: 700,
     layout: {
 		backgroundColor: '#0C1115',
 		textColor: '#d1d4dc',
@@ -77,6 +85,7 @@ fetch(bars_url, {
 
         }
         ));
+        // tabledata.data = data
     allData = data
     currentBar = data[data.length-1]
     candleSeries.setData(data)
